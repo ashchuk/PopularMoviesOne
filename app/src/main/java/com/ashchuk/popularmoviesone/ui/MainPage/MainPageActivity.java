@@ -1,6 +1,7 @@
 package com.ashchuk.popularmoviesone.ui.MainPage;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.ashchuk.popularmoviesone.R;
 
@@ -15,7 +16,6 @@ public class MainPageActivity extends DaggerAppCompatActivity implements IMainPa
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mainPagePresenter.loadMain();
@@ -23,6 +23,6 @@ public class MainPageActivity extends DaggerAppCompatActivity implements IMainPa
 
     @Override
     public void onMainLoaded() {
-
+        Log.v("TEST", "Main page is loaded.");
     }
 }
