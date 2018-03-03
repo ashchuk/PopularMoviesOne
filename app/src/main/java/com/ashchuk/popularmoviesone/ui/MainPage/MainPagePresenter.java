@@ -1,5 +1,6 @@
 package com.ashchuk.popularmoviesone.ui.MainPage;
 
+import com.ashchuk.popularmoviesone.utils.IMovieDBApiService;
 import com.ashchuk.popularmoviesone.utils.MovieDBApiService;
 
 import javax.inject.Inject;
@@ -10,17 +11,14 @@ import javax.inject.Inject;
 
 public class MainPagePresenter implements IMainPagePresenter {
 
-    IMainPageView mainPageView;
-    MovieDBApiService movieDBApiService;
+    IMovieDBApiService movieDBApiService;
 
     @Inject
-    public MainPagePresenter(IMainPageView mainView, MovieDBApiService apiService) {
-        this.mainPageView = mainView;
+    public MainPagePresenter(IMovieDBApiService apiService) {
         this.movieDBApiService = apiService;
     }
 
     public void loadMain(){
         movieDBApiService.doWork();
-        mainPageView.onMainLoaded();
     }
 }
