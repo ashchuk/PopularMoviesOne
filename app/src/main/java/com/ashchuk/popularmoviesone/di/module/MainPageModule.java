@@ -1,6 +1,8 @@
-package com.ashchuk.popularmoviesone.ui.MainPage;
+package com.ashchuk.popularmoviesone.di.module;
 
-import com.ashchuk.popularmoviesone.utils.MovieDBApiService;
+import com.ashchuk.popularmoviesone.api.MovieDBApiService;
+import com.ashchuk.popularmoviesone.ui.MainPage.MainPageActivity;
+import com.ashchuk.popularmoviesone.ui.MainPage.MainPagePresenter;
 
 import dagger.Binds;
 import dagger.Module;

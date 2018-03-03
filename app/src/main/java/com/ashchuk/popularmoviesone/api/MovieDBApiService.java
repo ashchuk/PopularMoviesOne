@@ -1,4 +1,4 @@
-package com.ashchuk.popularmoviesone.utils;
+package com.ashchuk.popularmoviesone.api;
 
 import javax.inject.Inject;
 

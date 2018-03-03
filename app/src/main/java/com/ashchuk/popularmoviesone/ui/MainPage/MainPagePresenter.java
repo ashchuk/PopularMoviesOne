@@ -1,7 +1,6 @@
 package com.ashchuk.popularmoviesone.ui.MainPage;
 
-import com.ashchuk.popularmoviesone.utils.IMovieDBApiService;
-import com.ashchuk.popularmoviesone.utils.MovieDBApiService;
+import com.ashchuk.popularmoviesone.api.IMovieDBApiService;
 
 import javax.inject.Inject;
 

@@ -1,4 +1,4 @@
-package com.ashchuk.popularmoviesone.ui.DetailPage;
+package com.ashchuk.popularmoviesone.di.module;
 
 import dagger.Module;
 

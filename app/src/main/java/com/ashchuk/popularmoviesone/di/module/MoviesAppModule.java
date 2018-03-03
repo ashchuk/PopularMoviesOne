@@ -1,4 +1,4 @@
-package com.ashchuk.popularmoviesone.di;
+package com.ashchuk.popularmoviesone.di.module;
 
 import android.app.Application;
 import android.content.Context;

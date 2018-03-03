@@ -1,9 +1,9 @@
 package com.ashchuk.popularmoviesone.di;
 
 import com.ashchuk.popularmoviesone.ui.DetailPage.DetailPageActivity;
-import com.ashchuk.popularmoviesone.ui.DetailPage.DetailPageModule;
+import com.ashchuk.popularmoviesone.di.module.DetailPageModule;
 import com.ashchuk.popularmoviesone.ui.MainPage.MainPageActivity;
-import com.ashchuk.popularmoviesone.ui.MainPage.MainPageModule;
+import com.ashchuk.popularmoviesone.di.module.MainPageModule;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
