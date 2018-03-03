@@ -1,8 +1,6 @@
 package com.ashchuk.popularmoviesone.ui.MainPage;
 
-import com.ashchuk.popularmoviesone.utils.IMovieDBApiService;
 import com.ashchuk.popularmoviesone.utils.MovieDBApiService;
-import com.ashchuk.popularmoviesone.utils.SuperMovieDBApiService;
 
 import dagger.Binds;
 import dagger.Module;
@@ -15,7 +13,7 @@ import dagger.Provides;
 public abstract class MainPageModule {
 
     @Provides
-    static MainPagePresenter provideMainPagePresenter(SuperMovieDBApiService movieDBApiService) {
+    static MainPagePresenter provideMainPagePresenter(MovieDBApiService movieDBApiService) {
         return new MainPagePresenter(movieDBApiService);
     }
 
