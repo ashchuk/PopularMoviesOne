@@ -1,5 +1,6 @@
 package com.ashchuk.popularmoviesone.di;
 
+import com.ashchuk.popularmoviesone.di.module.NetworkModule;
 import com.ashchuk.popularmoviesone.ui.DetailPage.DetailPageActivity;
 import com.ashchuk.popularmoviesone.di.module.DetailPageModule;
 import com.ashchuk.popularmoviesone.ui.MainPage.MainPageActivity;
@@ -15,7 +16,7 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 public abstract class ActivityBuilder {
 
-    @ContributesAndroidInjector(modules = MainPageModule.class)
+    @ContributesAndroidInjector(modules = {MainPageModule.class})
     abstract MainPageActivity bindMainPageActivity();
 
     @ContributesAndroidInjector(modules = {DetailPageModule.class})

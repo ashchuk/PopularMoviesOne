@@ -5,8 +5,9 @@ package com.ashchuk.popularmoviesone.utils;
  */
 
 public class Constants {
-    public static String TOP_RATED_ = "/3/movie/top_rated";
-    public static String POPULAR = "/3/movie/popular";
-    public static String END_POINT = "https://api.themoviedb.org/";
-    public static String API_KEY = "TOP_SECRET";
+    public static final String TOP_RATED = "top_rated";
+    public static final String POPULAR = "popular";
+    public static final String MOVIE_INFO= "{movie_id}";
+    public static final String END_POINT = "https://api.themoviedb.org/3/movie/";
+    public static final String API_KEY = "TOP_SECRET";
 }
