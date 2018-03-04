@@ -5,6 +5,8 @@ import android.util.Log;
 
 import com.ashchuk.popularmoviesone.R;
 import com.ashchuk.popularmoviesone.api.IMovieDBApi;
+import com.ashchuk.popularmoviesone.data.pojo.Movie;
+import com.ashchuk.popularmoviesone.data.pojo.MoviesQueryResult;
 
 import java.io.IOException;
 import java.util.List;
@@ -34,32 +36,9 @@ public class MainPageActivity extends DaggerAppCompatActivity implements IMainPa
         mainPagePresenter.loadMain();
         IMovieDBApi movieDBApi = retrofit.create(IMovieDBApi.class);
 
-        Call<ResponseBody> test = movieDBApi.getTopRated();
-        test.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if(response.isSuccessful()) {
-                    try {
-                        String values = response.body().string();
-                        Log.v("TEST", "getTopRated query successfull");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Log.v("TEST", "getTopRated query failure");
-                    }
-                } else {
-                    System.out.println(response.errorBody());
-                    Log.v("TEST", "getTopRated response is not successfull");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.v("TEST", "getTopRated onFailure");
-                t.printStackTrace();
-            }
-        });
-        Call<ResponseBody> test2 = movieDBApi.getPopular();
-        Call<ResponseBody> test3 = movieDBApi.getMovieInfo("500");
+        Flowable<MoviesQueryResult> test = movieDBApi.getTopRated();
+        Flowable<MoviesQueryResult> test2 = movieDBApi.getPopular();
+        Flowable<Movie> test3 = movieDBApi.getMovieInfo("500");
     }
 
     @Override
