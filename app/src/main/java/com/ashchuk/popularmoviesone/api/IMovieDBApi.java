@@ -5,6 +5,7 @@ import com.ashchuk.popularmoviesone.data.pojo.MoviesQueryResult;
 import com.ashchuk.popularmoviesone.utils.Constants;
 
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
@@ -15,11 +16,11 @@ import retrofit2.http.Path;
 public interface IMovieDBApi {
 
     @GET(Constants.POPULAR)
-    Flowable<MoviesQueryResult> getPopular();
+    Observable<MoviesQueryResult> getPopular();
 
     @GET(Constants.TOP_RATED)
-    Flowable<MoviesQueryResult> getTopRated();
+    Observable<MoviesQueryResult> getTopRated();
 
     @GET(Constants.MOVIE_INFO)
-    Flowable<Movie> getMovieInfo(@Path(value = "movie_id", encoded = true) String movieId);
+    Observable<Movie> getMovieInfo(@Path(value = "movie_id", encoded = true) String movieId);
 }
