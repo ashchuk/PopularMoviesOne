@@ -9,25 +9,14 @@ import com.ashchuk.popularmoviesone.api.IMovieDBApi;
 import com.ashchuk.popularmoviesone.data.pojo.Movie;
 import com.ashchuk.popularmoviesone.data.pojo.MoviesQueryResult;
 
-import org.reactivestreams.Subscription;
-
-import java.io.IOException;
-import java.util.List;
-
-import javax.inject.Inject;
-
 import dagger.android.support.DaggerAppCompatActivity;
-import io.reactivex.Flowable;
-import io.reactivex.FlowableSubscriber;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
+
+import javax.inject.Inject;
 
 public class MainPageActivity extends DaggerAppCompatActivity implements IMainPageView {
 
