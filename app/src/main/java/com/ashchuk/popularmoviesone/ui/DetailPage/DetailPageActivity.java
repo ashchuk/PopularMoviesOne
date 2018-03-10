@@ -1,5 +1,6 @@
 package com.ashchuk.popularmoviesone.ui.DetailPage;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,6 +9,7 @@ import android.view.View;
 
 import com.ashchuk.popularmoviesone.R;
 import com.ashchuk.popularmoviesone.data.pojo.Movie;
+import com.ashchuk.popularmoviesone.databinding.ActivityDetailBinding;
 
 import dagger.android.support.DaggerAppCompatActivity;
 
@@ -16,7 +18,11 @@ public class DetailPageActivity extends DaggerAppCompatActivity implements IDeta
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+
+        ActivityDetailBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
+        Movie movie = (Movie) getIntent().getSerializableExtra("movie");
+        binding.setMovie(movie);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -28,8 +34,6 @@ public class DetailPageActivity extends DaggerAppCompatActivity implements IDeta
                         .setAction("Action", null).show(); 
             }
         });
-
-        Movie movie = (Movie) getIntent().getSerializableExtra("movie");
     }
 
     @Override
