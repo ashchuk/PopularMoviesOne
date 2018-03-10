@@ -1,13 +1,17 @@
 package com.ashchuk.popularmoviesone.ui.MainPage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.ashchuk.popularmoviesone.R;
 import com.ashchuk.popularmoviesone.api.IMovieDBApi;
 import com.ashchuk.popularmoviesone.data.pojo.Movie;
 import com.ashchuk.popularmoviesone.data.pojo.MoviesQueryResult;
+import com.ashchuk.popularmoviesone.ui.DetailPage.DetailPageActivity;
 
 import dagger.android.support.DaggerAppCompatActivity;
 import io.reactivex.Observer;
@@ -32,6 +36,17 @@ public class MainPageActivity extends DaggerAppCompatActivity implements IMainPa
         setContentView(R.layout.activity_main);
 
         final GridView gridView = findViewById(R.id.gridview);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id) {
+                Movie movie = (Movie) parent.getItemAtPosition(position);
+
+                Intent intent = new Intent(MainPageActivity.this, DetailPageActivity.class);
+                intent.putExtra("movie", movie);
+                startActivity(intent);
+            }
+        });
 
         mainPagePresenter.loadMain();
         IMovieDBApi movieDBApi = retrofit.create(IMovieDBApi.class);

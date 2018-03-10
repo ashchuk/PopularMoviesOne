@@ -1,20 +1,35 @@
 package com.ashchuk.popularmoviesone.ui.DetailPage;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+
+import com.ashchuk.popularmoviesone.R;
+import com.ashchuk.popularmoviesone.data.pojo.Movie;
 
 import dagger.android.support.DaggerAppCompatActivity;
-
-/**
- * Created by Artyom Koshko (@ashchuk) on 24.02.2018.
- */
 
 public class DetailPageActivity extends DaggerAppCompatActivity implements IDetailPageView {
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_detail);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show(); 
+            }
+        });
+
+        Movie movie = (Movie) getIntent().getSerializableExtra("movie");
     }
 
     @Override

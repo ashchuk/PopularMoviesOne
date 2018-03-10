@@ -1,5 +1,6 @@
 package com.ashchuk.popularmoviesone.data.pojo;
 
+import java.io.Serializable;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -8,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by Artyom Koshko (@ashchuk) on 04.03.2018.
  */
 
-public class Movie {
+public class Movie implements Serializable {
     @SerializedName("vote_count")
     @Expose
     private Integer voteCount;

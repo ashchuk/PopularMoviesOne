@@ -5,17 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.ashchuk.popularmoviesone.R;
 import com.ashchuk.popularmoviesone.data.pojo.Movie;
 import com.ashchuk.popularmoviesone.utils.Constants;
 import com.squareup.picasso.Picasso;
-
-import java.net.URL;
-import java.util.List;
 
 /**
  * Created by Artyom Koshko (@ashchuk) on 04.03.2018.
@@ -23,7 +18,7 @@ import java.util.List;
 
 public class MovieItemAdapter extends BaseAdapter {
     private Context context;
-    private final Movie[] movies;
+    public final Movie[] movies;
 
     public MovieItemAdapter(Context context, Movie[] movies) {
         this.context = context;
@@ -58,11 +53,11 @@ public class MovieItemAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return movies[position];
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return movies[position].getId();
     }
 }
