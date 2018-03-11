@@ -1,10 +1,9 @@
 package com.ashchuk.popularmoviesone.api;
 
-import com.ashchuk.popularmoviesone.data.pojo.Movie;
+import com.ashchuk.popularmoviesone.data.pojo.MovieDetailed;
 import com.ashchuk.popularmoviesone.data.pojo.MoviesQueryResult;
 import com.ashchuk.popularmoviesone.utils.Constants;
 
-import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -22,5 +21,5 @@ public interface IMovieDBApi {
     Observable<MoviesQueryResult> getTopRated();
 
     @GET(Constants.MOVIE_INFO)
-    Observable<Movie> getMovieInfo(@Path(value = "movie_id", encoded = true) String movieId);
+    Observable<MovieDetailed> getMovieInfo(@Path(value = "movie_id", encoded = true) String movieId);
 }
