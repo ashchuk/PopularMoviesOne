@@ -1,6 +1,6 @@
 package com.ashchuk.popularmoviesone.di.module;
 
-import com.ashchuk.popularmoviesone.api.MovieDBApiService;
+import com.ashchuk.popularmoviesone.ui.MainPage.IMainPagePresenter;
 import com.ashchuk.popularmoviesone.ui.MainPage.MainPageActivity;
 import com.ashchuk.popularmoviesone.ui.MainPage.MainPagePresenter;
 
@@ -15,8 +15,8 @@ import dagger.Provides;
 public abstract class MainPageModule {
 
     @Provides
-    static MainPagePresenter provideMainPagePresenter(MovieDBApiService movieDBApiService) {
-        return new MainPagePresenter(movieDBApiService);
+    static IMainPagePresenter provideMainPagePresenter() {
+        return new MainPagePresenter();
     }
 
     @Binds

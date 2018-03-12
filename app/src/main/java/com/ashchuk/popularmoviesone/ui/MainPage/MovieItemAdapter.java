@@ -18,11 +18,10 @@ import com.squareup.picasso.Picasso;
 
 public class MovieItemAdapter extends BaseAdapter {
     private Context context;
-    public final Movie[] movies;
+    public Movie[] movies = new Movie[] {};
 
-    public MovieItemAdapter(Context context, Movie[] movies) {
+    public MovieItemAdapter(Context context) {
         this.context = context;
-        this.movies = movies;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -45,6 +44,10 @@ public class MovieItemAdapter extends BaseAdapter {
         return imageView;
     }
 
+    public void setMovies(Movie[] movies) {
+        this.movies = movies;
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getCount() {

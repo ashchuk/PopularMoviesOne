@@ -24,11 +24,10 @@ import javax.inject.Inject;
 
 public class MainPageActivity extends DaggerAppCompatActivity implements IMainPageView {
 
-    @Inject
-    MainPagePresenter mainPagePresenter;
+    private Observer<MoviesQueryResult> observer;
 
     @Inject
-    Retrofit retrofit;
+    MainPagePresenter mainPagePresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,25 +35,21 @@ public class MainPageActivity extends DaggerAppCompatActivity implements IMainPa
         setContentView(R.layout.activity_main);
 
         final GridView gridView = findViewById(R.id.gridview);
+        gridView.setAdapter(new MovieItemAdapter(getApplicationContext()));
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                Movie movie = (Movie) parent.getItemAtPosition(position);
-
-                Intent intent = new Intent(MainPageActivity.this, DetailPageActivity.class);
-                intent.putExtra("movie", movie);
-                startActivity(intent);
+                mainPagePresenter.subscribeOnPopular(observer);
+//                Movie movie = (Movie) parent.getItemAtPosition(position);
+//
+//                Intent intent = new Intent(MainPageActivity.this, DetailPageActivity.class);
+//                intent.putExtra("movie", movie);
+//                startActivity(intent);
             }
         });
 
-        mainPagePresenter.loadMain();
-        IMovieDBApi movieDBApi = retrofit.create(IMovieDBApi.class);
-
-        movieDBApi.getTopRated()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<MoviesQueryResult>() {
+        observer = new Observer<MoviesQueryResult>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         Log.v("TEST", "onSubscribe invoked");
@@ -63,7 +58,7 @@ public class MainPageActivity extends DaggerAppCompatActivity implements IMainPa
                     @Override
                     public void onNext(MoviesQueryResult moviesQueryResult) {
                         Log.v("TEST", "onNext invoked");
-                        gridView.setAdapter(new MovieItemAdapter(getApplicationContext(), moviesQueryResult.getResults().toArray(new Movie[moviesQueryResult.getResults().size()])));
+                        ((MovieItemAdapter) gridView.getAdapter()).setMovies(moviesQueryResult.getResults().toArray(new Movie[moviesQueryResult.getResults().size()]));
                         gridView.refreshDrawableState();
                     }
 
@@ -76,7 +71,10 @@ public class MainPageActivity extends DaggerAppCompatActivity implements IMainPa
                     public void onComplete() {
                         Log.v("TEST", "onComplete invoked");
                     }
-                });
+                };
+
+
+        mainPagePresenter.subscribeOnTopRated(observer);
     }
 
     @Override

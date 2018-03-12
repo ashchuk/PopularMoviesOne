@@ -1,6 +1,5 @@
 package com.ashchuk.popularmoviesone.di;
 
-import com.ashchuk.popularmoviesone.di.module.NetworkModule;
 import com.ashchuk.popularmoviesone.ui.DetailPage.DetailPageActivity;
 import com.ashchuk.popularmoviesone.di.module.DetailPageModule;
 import com.ashchuk.popularmoviesone.ui.MainPage.MainPageActivity;
