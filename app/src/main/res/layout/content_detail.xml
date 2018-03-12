@@ -57,8 +57,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
+                    android:text="@{String.format(@string/runtime_format, Integer.toString(movie.runtime))}"
+                    tools:text="120 min" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
                     android:text="@{movie.originalLanguage}"
-                    tools:text="120min" />
+                    tools:text="en" />
 
                 <TextView
                     android:layout_width="wrap_content"

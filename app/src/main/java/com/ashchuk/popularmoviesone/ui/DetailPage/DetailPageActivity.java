@@ -1,5 +1,7 @@
 package com.ashchuk.popularmoviesone.ui.DetailPage;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -20,6 +22,9 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 public class DetailPageActivity extends DaggerAppCompatActivity implements IDetailPageView {
+
+    private ProgressDialog progressDialog;
+    private AlertDialog.Builder alertDialog;
 
     private Observer<MovieDetailed> observer;
     private String movieId;
@@ -71,11 +76,25 @@ public class DetailPageActivity extends DaggerAppCompatActivity implements IDeta
             }
         });
 
+        detailPagePresenter.subscribeOnMovie(observer, movieId);
+    }
 
+
+    private void initDialogs() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(getString(R.string.loading_message));
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCanceledOnTouchOutside(false);
+
+        alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setMessage("Error occurred. Try again");
+        alertDialog.setPositiveButton("OK", null);
+        alertDialog.setCancelable(true);
+        alertDialog.create();
     }
 
     @Override
     public void onDetailLoaded() {
-        detailPagePresenter.subscribeOnMovie(observer, movieId);
+        initDialogs();
     }
 }

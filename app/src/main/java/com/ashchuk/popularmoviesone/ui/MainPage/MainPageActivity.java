@@ -46,7 +46,7 @@ public class MainPageActivity extends DaggerAppCompatActivity implements IMainPa
                                     int position, long id) {
                 Movie movie = (Movie) parent.getItemAtPosition(position);
                 Intent intent = new Intent(MainPageActivity.this, DetailPageActivity.class);
-                intent.putExtra("movie", movie);
+                intent.putExtra("movie_id", Integer.toString(movie.getId()));
                 startActivity(intent);
             }
         });
@@ -78,6 +78,7 @@ public class MainPageActivity extends DaggerAppCompatActivity implements IMainPa
                         Log.v("TEST", "onComplete invoked");
                     }
                 };
+        mainPagePresenter.subscribeOnTopRated(observer);
     }
 
     private void initDialogs() {
@@ -117,6 +118,5 @@ public class MainPageActivity extends DaggerAppCompatActivity implements IMainPa
     @Override
     public void onMainLoaded() {
         initDialogs();
-        mainPagePresenter.subscribeOnTopRated(observer);
     }
 }
