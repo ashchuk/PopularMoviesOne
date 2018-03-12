@@ -92,4 +92,8 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+    <string name="popular">Popular</string>
+    <string name="top_rated">Top rated</string>
+    <string name="loading_message">Loading</string>
+    <string name="add_to_favorites_message">Added to favorites</string>
 </resources>

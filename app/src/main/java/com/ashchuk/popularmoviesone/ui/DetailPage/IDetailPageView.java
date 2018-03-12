@@ -7,5 +7,4 @@ package com.ashchuk.popularmoviesone.ui.DetailPage;
 public interface IDetailPageView {
 
     void onDetailLoaded();
-
 }

@@ -1,53 +1,63 @@
 package com.ashchuk.popularmoviesone.ui.DetailPage;
 
 import android.databinding.DataBindingUtil;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.ashchuk.popularmoviesone.R;
-import com.ashchuk.popularmoviesone.data.pojo.Movie;
+import com.ashchuk.popularmoviesone.data.pojo.MovieDetailed;
 import com.ashchuk.popularmoviesone.databinding.ActivityDetailBinding;
 import com.ashchuk.popularmoviesone.utils.Constants;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
+
+
+import javax.inject.Inject;
 
 import dagger.android.support.DaggerAppCompatActivity;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 public class DetailPageActivity extends DaggerAppCompatActivity implements IDetailPageView {
+
+    private Observer<MovieDetailed> observer;
+    private String movieId;
+
+    @Inject
+    DetailPagePresenter detailPagePresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         final ActivityDetailBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
-        Movie movie = (Movie) getIntent().getSerializableExtra("movie");
-        binding.setMovie(movie);
+        movieId = getIntent().getStringExtra("movie_id");
 
-        Picasso.get().load(Constants.POSTER_END_POINT + movie.getPosterPath()).into(new Target() {
-            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+        observer = new Observer<MovieDetailed>() {
             @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                binding.moviePoster.setImageBitmap(bitmap);
-                binding.includeDetail.moviePoster.setImageBitmap(bitmap);
-            }
-
-            @Override
-            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+            public void onSubscribe(Disposable d) {
 
             }
 
             @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
+            public void onNext(MovieDetailed movieDetailed) {
+                binding.setMovie(movieDetailed);
+
+                Picasso.get().load(Constants.POSTER_END_POINT + movieDetailed.getPosterPath()).into(binding.moviePoster);
+                Picasso.get().load(Constants.POSTER_END_POINT + movieDetailed.getPosterPath()).into(binding.includeDetail.moviePoster);
+            }
+
+            @Override
+            public void onError(Throwable e) {
 
             }
-        });
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
 
         setSupportActionBar(binding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -56,14 +66,16 @@ public class DetailPageActivity extends DaggerAppCompatActivity implements IDeta
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, R.string.add_to_favorites_message, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show(); 
             }
         });
+
+
     }
 
     @Override
     public void onDetailLoaded() {
-
+        detailPagePresenter.subscribeOnMovie(observer, movieId);
     }
 }

@@ -1,6 +1,7 @@
 package com.ashchuk.popularmoviesone.di.module;
 
 import com.ashchuk.popularmoviesone.ui.MainPage.IMainPagePresenter;
+import com.ashchuk.popularmoviesone.ui.MainPage.IMainPageView;
 import com.ashchuk.popularmoviesone.ui.MainPage.MainPageActivity;
 import com.ashchuk.popularmoviesone.ui.MainPage.MainPagePresenter;
 
@@ -15,11 +16,11 @@ import dagger.Provides;
 public abstract class MainPageModule {
 
     @Provides
-    static IMainPagePresenter provideMainPagePresenter() {
-        return new MainPagePresenter();
+    static IMainPagePresenter provideMainPagePresenter(IMainPageView mainPageView) {
+        return new MainPagePresenter(mainPageView);
     }
 
     @Binds
-    abstract MainPageActivity provideMainPageView(MainPageActivity mainPageActivity);
+    abstract IMainPageView provideMainPageView(MainPageActivity mainPageActivity);
 
 }

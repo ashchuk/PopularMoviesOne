@@ -1,16 +1,12 @@
 package com.ashchuk.popularmoviesone.ui.MainPage;
 
-import android.util.Log;
-
 import com.ashchuk.popularmoviesone.api.IMovieDBApi;
-import com.ashchuk.popularmoviesone.data.pojo.Movie;
 import com.ashchuk.popularmoviesone.data.pojo.MoviesQueryResult;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
@@ -21,12 +17,14 @@ import retrofit2.Retrofit;
 public class MainPagePresenter implements IMainPagePresenter {
 
     @Inject
-    public MainPagePresenter() { }
+    public MainPagePresenter(IMainPageView mainPageView) {
+        mainPageView.onMainLoaded();
+    }
 
     @Inject
     Retrofit retrofit;
 
-    public void subscribeOnTopRated(Observer<MoviesQueryResult> observer){
+    public void subscribeOnTopRated(Observer<MoviesQueryResult> observer) {
         IMovieDBApi movieDBApi = retrofit.create(IMovieDBApi.class);
         movieDBApi.getTopRated()
                 .subscribeOn(Schedulers.io())
@@ -41,11 +39,5 @@ public class MainPagePresenter implements IMainPagePresenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
-    }
-
-    @Override
-    public void unsubscribe() {
-        IMovieDBApi movieDBApi = retrofit.create(IMovieDBApi.class);
-        movieDBApi.getTopRated().unsubscribeOn(Schedulers.io());
     }
 }

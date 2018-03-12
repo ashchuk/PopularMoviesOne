@@ -11,5 +11,4 @@ import io.reactivex.Observer;
 public interface IMainPagePresenter {
     void subscribeOnTopRated(Observer<MoviesQueryResult> observer);
     void subscribeOnPopular(Observer<MoviesQueryResult> observer);
-    void unsubscribe();
 }
