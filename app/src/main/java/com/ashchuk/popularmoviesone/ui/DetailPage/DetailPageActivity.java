@@ -85,6 +85,9 @@ public class DetailPageActivity extends DaggerAppCompatActivity implements IDeta
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.loading_message));
         progressDialog.setIndeterminate(true);
+        // From Android Nanodegree General Project Guidelines
+        // All dialogs are dismissible using the Back button.
+        //progressDialog.setCanceledOnTouchOutside(false);
 
         alertDialog = new AlertDialog.Builder(this);
         alertDialog.setMessage("Error occurred. Try again");

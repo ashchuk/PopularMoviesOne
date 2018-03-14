@@ -81,6 +81,9 @@ public class MainPageActivity extends DaggerAppCompatActivity implements IMainPa
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.loading_message));
         progressDialog.setIndeterminate(true);
+        // From Android Nanodegree General Project Guidelines
+        // All dialogs are dismissible using the Back button.
+        //progressDialog.setCanceledOnTouchOutside(false);
 
         alertDialog = new AlertDialog.Builder(this);
         alertDialog.setMessage("Error occurred. Try again");
