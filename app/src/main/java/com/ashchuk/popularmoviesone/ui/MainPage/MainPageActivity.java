@@ -54,13 +54,11 @@ public class MainPageActivity extends DaggerAppCompatActivity implements IMainPa
         observer = new Observer<MoviesQueryResult>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        Log.v("TEST", "onSubscribe invoked");
                         progressDialog.show();
                     }
 
                     @Override
                     public void onNext(MoviesQueryResult moviesQueryResult) {
-                        Log.v("TEST", "onNext invoked");
                         ((MovieItemAdapter) gridView.getAdapter()).setMovies(moviesQueryResult.getResults().toArray(new Movie[moviesQueryResult.getResults().size()]));
                         gridView.refreshDrawableState();
                     }
@@ -69,13 +67,11 @@ public class MainPageActivity extends DaggerAppCompatActivity implements IMainPa
                     public void onError(Throwable t) {
                         progressDialog.dismiss();
                         alertDialog.show();
-                        Log.v("TEST", "onError invoked" + t.getStackTrace());
                     }
 
                     @Override
                     public void onComplete() {
                         progressDialog.dismiss();
-                        Log.v("TEST", "onComplete invoked");
                     }
                 };
         mainPagePresenter.subscribeOnTopRated(observer);

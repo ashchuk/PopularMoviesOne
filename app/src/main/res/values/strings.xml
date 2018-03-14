@@ -18,6 +18,7 @@
         "interact, and exist in space and in relation to each other. Realistic lighting shows "
         "seams, divides space, and indicates moving parts.\n\n"
     </string>
+    <string name="separator">-</string>
     <string name="popular">Popular</string>
     <string name="top_rated">Top rated</string>
     <string name="loading_message">Loading</string>

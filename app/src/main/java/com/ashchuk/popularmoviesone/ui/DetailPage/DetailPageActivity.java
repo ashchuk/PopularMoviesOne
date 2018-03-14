@@ -42,7 +42,7 @@ public class DetailPageActivity extends DaggerAppCompatActivity implements IDeta
         observer = new Observer<MovieDetailed>() {
             @Override
             public void onSubscribe(Disposable d) {
-
+                progressDialog.show();
             }
 
             @Override
@@ -55,12 +55,13 @@ public class DetailPageActivity extends DaggerAppCompatActivity implements IDeta
 
             @Override
             public void onError(Throwable e) {
-
+                progressDialog.dismiss();
+                alertDialog.show();
             }
 
             @Override
             public void onComplete() {
-
+                progressDialog.dismiss();
             }
         };
 

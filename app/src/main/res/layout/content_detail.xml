@@ -38,41 +38,41 @@
                 android:id="@+id/movie_summary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
                 android:layout_marginTop="15dp"
                 android:gravity="center"
                 android:orientation="vertical"
-                app:layout_constraintStart_toEndOf="@+id/movie_poster"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/movie_title"
-                android:layout_marginLeft="50dp">
+                android:layout_marginRight="50dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{movie.releaseDate.split(@string/separator)[0]}"
                     android:textSize="25sp"
-                    android:text="@{movie.releaseDate}"
                     tools:text="2018" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
                     android:text="@{String.format(@string/runtime_format, Integer.toString(movie.runtime))}"
+                    android:textSize="20sp"
                     tools:text="120 min" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
                     android:text="@{movie.originalLanguage}"
+                    android:textSize="20sp"
                     tools:text="en" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:textSize="12sp"
                     android:text="@{String.format(@string/vote_format, movie.voteAverage)}"
+                    android:textSize="12sp"
                     tools:text="8/10" />
 
             </LinearLayout>
