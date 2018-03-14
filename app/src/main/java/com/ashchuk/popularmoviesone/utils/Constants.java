@@ -10,4 +10,5 @@ public class Constants {
     public static final String MOVIE_INFO= "{movie_id}";
     public static final String END_POINT = "https://api.themoviedb.org/3/movie/";
     public static final String POSTER_END_POINT = "http://image.tmdb.org/t/p/w342";
+    public static final String API_KEY = "TOP_SECRET";
 }
