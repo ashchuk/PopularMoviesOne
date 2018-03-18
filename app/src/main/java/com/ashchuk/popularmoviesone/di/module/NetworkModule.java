@@ -2,6 +2,7 @@ package com.ashchuk.popularmoviesone.di.module;
 
 import android.app.Application;
 
+import com.ashchuk.popularmoviesone.BuildConfig;
 import com.ashchuk.popularmoviesone.utils.Constants;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -54,7 +55,7 @@ public class NetworkModule {
                 HttpUrl originalHttpUrl = original.url();
                 // Add TheMovieDB API key as parameter to every query
                 HttpUrl url = originalHttpUrl.newBuilder()
-                        .addQueryParameter("api_key", Constants.API_KEY)
+                        .addQueryParameter("api_key", BuildConfig.THE_MOVIE_DB_API_KEY)
                         .build();
 
                 Request.Builder requestBuilder = original.newBuilder()
