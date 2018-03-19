@@ -68,14 +68,9 @@ public class DetailPageActivity extends DaggerAppCompatActivity implements IDeta
         setSupportActionBar(binding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, R.string.add_to_favorites_message, Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show(); 
-            }
-        });
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(view -> Snackbar.make(view, R.string.add_to_favorites_message, Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show());
 
         detailPagePresenter.subscribeOnMovie(observer, movieId);
     }

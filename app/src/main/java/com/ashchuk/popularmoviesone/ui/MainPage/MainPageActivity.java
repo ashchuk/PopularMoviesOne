@@ -41,14 +41,11 @@ public class MainPageActivity extends DaggerAppCompatActivity implements IMainPa
         final GridView gridView = findViewById(R.id.gridview);
         gridView.setAdapter(new MovieItemAdapter(getApplicationContext()));
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v,
-                                    int position, long id) {
-                Movie movie = (Movie) parent.getItemAtPosition(position);
-                Intent intent = new Intent(MainPageActivity.this, DetailPageActivity.class);
-                intent.putExtra("movie_id", Integer.toString(movie.getId()));
-                startActivity(intent);
-            }
+        gridView.setOnItemClickListener((parent, v, position, id) -> {
+            Movie movie = (Movie) parent.getItemAtPosition(position);
+            Intent intent = new Intent(MainPageActivity.this, DetailPageActivity.class);
+            intent.putExtra("movie_id", Integer.toString(movie.getId()));
+            startActivity(intent);
         });
 
         observer = new Observer<MoviesQueryResult>() {
