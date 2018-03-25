@@ -26,6 +26,12 @@
             android:name=".ui.DetailPage.DetailPageActivity"
             android:parentActivityName=".ui.MainPage.MainPageActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <provider
+            android:name=".data.persistance.MoviesContentProvider"
+            android:authorities="com.ashchuk.popularmoviesone"
+            android:exported="false" />
+
     </application>
 
 </manifest>

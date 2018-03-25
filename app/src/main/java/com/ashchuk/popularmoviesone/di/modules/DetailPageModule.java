@@ -1,4 +1,4 @@
-package com.ashchuk.popularmoviesone.di.module;
+package com.ashchuk.popularmoviesone.di.modules;
 
 import com.ashchuk.popularmoviesone.ui.DetailPage.DetailPageActivity;
 import com.ashchuk.popularmoviesone.ui.DetailPage.DetailPagePresenter;

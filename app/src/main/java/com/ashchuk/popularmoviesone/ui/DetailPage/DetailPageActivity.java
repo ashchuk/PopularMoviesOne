@@ -2,13 +2,15 @@ package com.ashchuk.popularmoviesone.ui.DetailPage;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.view.View;
 
 import com.ashchuk.popularmoviesone.R;
+import com.ashchuk.popularmoviesone.data.persistance.MoviesDbContract;
+import com.ashchuk.popularmoviesone.data.persistance.MoviesDbHelper;
 import com.ashchuk.popularmoviesone.data.pojo.MovieDetailed;
 import com.ashchuk.popularmoviesone.databinding.ActivityDetailBinding;
 import com.ashchuk.popularmoviesone.utils.Constants;
@@ -27,10 +29,14 @@ public class DetailPageActivity extends DaggerAppCompatActivity implements IDeta
     private AlertDialog.Builder alertDialog;
 
     private Observer<MovieDetailed> observer;
+    private MovieDetailed movie;
     private String movieId;
 
     @Inject
     DetailPagePresenter detailPagePresenter;
+
+    @Inject
+    MoviesDbHelper moviesDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +54,7 @@ public class DetailPageActivity extends DaggerAppCompatActivity implements IDeta
             @Override
             public void onNext(MovieDetailed movieDetailed) {
                 binding.setMovie(movieDetailed);
-
+                movie = movieDetailed;
                 Picasso.get().load(Constants.POSTER_END_POINT + movieDetailed.getPosterPath()).into(binding.moviePoster);
                 Picasso.get().load(Constants.POSTER_END_POINT + movieDetailed.getPosterPath()).into(binding.includeDetail.moviePoster);
             }
@@ -60,17 +66,18 @@ public class DetailPageActivity extends DaggerAppCompatActivity implements IDeta
             }
 
             @Override
-            public void onComplete() {
-                progressDialog.dismiss();
-            }
+            public void onComplete() { progressDialog.dismiss(); }
         };
 
         setSupportActionBar(binding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> Snackbar.make(view, R.string.add_to_favorites_message, Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
+        fab.setOnClickListener(view -> {
+            Snackbar.make(view, R.string.add_to_favorites_message, Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+            moviesDbHelper.addMovieToDB(movie, this);
+        });
 
         detailPagePresenter.subscribeOnMovie(observer, movieId);
     }

@@ -3,8 +3,9 @@ package com.ashchuk.popularmoviesone.di;
 import android.app.Application;
 
 import com.ashchuk.popularmoviesone.App;
-import com.ashchuk.popularmoviesone.di.module.MoviesAppModule;
-import com.ashchuk.popularmoviesone.di.module.NetworkModule;
+import com.ashchuk.popularmoviesone.di.modules.DatabaseModule;
+import com.ashchuk.popularmoviesone.di.modules.MoviesAppModule;
+import com.ashchuk.popularmoviesone.di.modules.NetworkModule;
 
 import javax.inject.Singleton;
 
@@ -22,7 +23,8 @@ import dagger.android.support.DaggerApplication;
         AndroidSupportInjectionModule.class,
         MoviesAppModule.class,
         ActivityBuilder.class,
-        NetworkModule.class})
+        NetworkModule.class,
+        DatabaseModule.class})
 public interface IMoviesAppComponent extends AndroidInjector<DaggerApplication> {
 
     void inject(App app);

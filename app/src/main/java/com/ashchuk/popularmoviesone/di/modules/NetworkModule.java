@@ -1,9 +1,10 @@
-package com.ashchuk.popularmoviesone.di.module;
+package com.ashchuk.popularmoviesone.di.modules;
 
 import android.app.Application;
 
 import com.ashchuk.popularmoviesone.BuildConfig;
 import com.ashchuk.popularmoviesone.utils.Constants;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -65,6 +66,7 @@ public class NetworkModule {
                 return chain.proceed(request);
             }
         });
+        client.addNetworkInterceptor(new StethoInterceptor());
         client.cache(cache);
         return client.build();
     }
