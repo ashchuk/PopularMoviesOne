@@ -105,6 +105,9 @@ public class MainPageActivity extends DaggerAppCompatActivity implements IMainPa
             case R.id.action_get_top_ratied:
                 mainPagePresenter.subscribeOnTopRated(observer);
                 return true;
+            case R.id.action_get_favorite:
+                mainPagePresenter.subscribeOnTopRated(observer);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

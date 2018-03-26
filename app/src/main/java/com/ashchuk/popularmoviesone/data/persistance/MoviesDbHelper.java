@@ -2,10 +2,14 @@ package com.ashchuk.popularmoviesone.data.persistance;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.ashchuk.popularmoviesone.data.pojo.MovieDetailed;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Artyom Koshko (@ashchuk) on 24.03.2018.
@@ -52,5 +56,25 @@ public class MoviesDbHelper extends SQLiteOpenHelper {
 
         context.getContentResolver()
                 .insert(MoviesDbContract.FavoriteMoviesTable.CONTENT_URI, contentValues);
+    }
+
+    public List<MovieDetailed> getFavoriteMovies(Context context) {
+        Cursor cursor = context.getContentResolver()
+                .query(MoviesDbContract.FavoriteMoviesTable.CONTENT_URI,
+                        null, null, null, null);
+        ArrayList<MovieDetailed> movies = new ArrayList<>();
+        for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            // The Cursor is now set to the right position
+            MovieDetailed movie = new MovieDetailed();
+            movie.setId(cursor.getInt(cursor.getColumnIndex(MoviesDbContract.FavoriteMoviesTable._ID)));
+            movie.setPosterPath(cursor.getString(cursor.getColumnIndex(MoviesDbContract.FavoriteMoviesTable.COLUMN_POSTER_PATH)));
+            movie.setBackdropPath(cursor.getString(cursor.getColumnIndex(MoviesDbContract.FavoriteMoviesTable.COLUMN_BACKDROP_PATH)));
+            movie.setReleaseDate(cursor.getString(cursor.getColumnIndex(MoviesDbContract.FavoriteMoviesTable.COLUMN_RELEASE_YEAR)));
+            movie.setRuntime(cursor.getInt(cursor.getColumnIndex(MoviesDbContract.FavoriteMoviesTable.COLUMN_DURATION)));
+            movie.setVoteAverage(Double.parseDouble((cursor.getString(cursor.getColumnIndex(MoviesDbContract.FavoriteMoviesTable.COLUMN_RATING)))));
+            movie.setOverview(cursor.getString(cursor.getColumnIndex(MoviesDbContract.FavoriteMoviesTable.COLUMN_STORY)));
+            movies.add(movie);
+        }
+        return movies;
     }
 }
