@@ -1,8 +1,12 @@
 package com.ashchuk.popularmoviesone.ui.MainPage;
 
+import android.content.Context;
+
 import com.ashchuk.popularmoviesone.api.IMovieDBApi;
 import com.ashchuk.popularmoviesone.data.persistance.MoviesDbHelper;
+import com.ashchuk.popularmoviesone.data.pojo.MovieDetailed;
 import com.ashchuk.popularmoviesone.data.pojo.MoviesQueryResult;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -23,7 +27,7 @@ public class MainPagePresenter implements IMainPagePresenter {
     }
 
     @Inject
-    MoviesDbHelper moviesDbHelper;
+    public MoviesDbHelper moviesDbHelper;
 
     @Inject
     Retrofit retrofit;
@@ -47,7 +51,7 @@ public class MainPagePresenter implements IMainPagePresenter {
     }
 
     @Override
-    public void subscribeOnFavorite(Observer<MoviesQueryResult> observer) {
-        moviesDbHelper.getFavoriteMovies();
+    public List<MovieDetailed> subscribeOnFavorite(Context context) {
+        return moviesDbHelper.getFavoriteMovies(context);
     }
 }

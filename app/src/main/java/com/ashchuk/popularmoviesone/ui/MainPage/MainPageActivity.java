@@ -14,8 +14,12 @@ import android.widget.GridView;
 
 import com.ashchuk.popularmoviesone.R;
 import com.ashchuk.popularmoviesone.data.pojo.Movie;
+import com.ashchuk.popularmoviesone.data.pojo.MovieDetailed;
 import com.ashchuk.popularmoviesone.data.pojo.MoviesQueryResult;
 import com.ashchuk.popularmoviesone.ui.DetailPage.DetailPageActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import dagger.android.support.DaggerAppCompatActivity;
 import io.reactivex.Observer;
@@ -106,7 +110,7 @@ public class MainPageActivity extends DaggerAppCompatActivity implements IMainPa
                 mainPagePresenter.subscribeOnTopRated(observer);
                 return true;
             case R.id.action_get_favorite:
-                mainPagePresenter.subscribeOnTopRated(observer);
+                List<MovieDetailed> list = mainPagePresenter.subscribeOnFavorite(this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

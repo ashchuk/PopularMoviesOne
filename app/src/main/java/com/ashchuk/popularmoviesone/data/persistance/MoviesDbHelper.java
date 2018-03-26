@@ -63,8 +63,11 @@ public class MoviesDbHelper extends SQLiteOpenHelper {
                 .query(MoviesDbContract.FavoriteMoviesTable.CONTENT_URI,
                         null, null, null, null);
         ArrayList<MovieDetailed> movies = new ArrayList<>();
+
+        if (cursor == null)
+            return movies;
+
         for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-            // The Cursor is now set to the right position
             MovieDetailed movie = new MovieDetailed();
             movie.setId(cursor.getInt(cursor.getColumnIndex(MoviesDbContract.FavoriteMoviesTable._ID)));
             movie.setPosterPath(cursor.getString(cursor.getColumnIndex(MoviesDbContract.FavoriteMoviesTable.COLUMN_POSTER_PATH)));
