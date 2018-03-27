@@ -13,13 +13,13 @@ public class Videos {
 
     @SerializedName("results")
     @Expose
-    private List<Result> results = null;
+    private List<TrailerResult> results = null;
 
-    public List<Result> getResults() {
+    public List<TrailerResult> getResults() {
         return results;
     }
 
-    public void setResults(List<Result> results) {
+    public void setResults(List<TrailerResult> results) {
         this.results = results;
     }
 

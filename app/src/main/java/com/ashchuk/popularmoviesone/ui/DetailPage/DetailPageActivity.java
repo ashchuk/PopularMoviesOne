@@ -12,7 +12,11 @@ import com.ashchuk.popularmoviesone.R;
 import com.ashchuk.popularmoviesone.data.persistance.MoviesDbContract;
 import com.ashchuk.popularmoviesone.data.persistance.MoviesDbHelper;
 import com.ashchuk.popularmoviesone.data.pojo.MovieDetailed;
+import com.ashchuk.popularmoviesone.data.pojo.ReviewResult;
+import com.ashchuk.popularmoviesone.data.pojo.TrailerResult;
 import com.ashchuk.popularmoviesone.databinding.ActivityDetailBinding;
+import com.ashchuk.popularmoviesone.ui.DetailPage.adapters.ReviewItemAdapter;
+import com.ashchuk.popularmoviesone.ui.DetailPage.adapters.TrailerItemAdapter;
 import com.ashchuk.popularmoviesone.utils.Constants;
 import com.squareup.picasso.Picasso;
 
@@ -57,6 +61,16 @@ public class DetailPageActivity extends DaggerAppCompatActivity implements IDeta
                 movie = movieDetailed;
                 Picasso.get().load(Constants.POSTER_END_POINT + movieDetailed.getPosterPath()).into(binding.moviePoster);
                 Picasso.get().load(Constants.POSTER_END_POINT + movieDetailed.getPosterPath()).into(binding.includeDetail.moviePoster);
+
+                ReviewItemAdapter reviewItemAdapter = new ReviewItemAdapter(getApplicationContext());
+                reviewItemAdapter.setReviews(movieDetailed.getReviews().getResults()
+                        .toArray(new ReviewResult[movieDetailed.getReviews().getResults().size()]));
+                binding.includeDetail.reviews.setAdapter(reviewItemAdapter);
+
+                TrailerItemAdapter trailerItemAdapter = new TrailerItemAdapter(getApplicationContext());
+                trailerItemAdapter.setTrailers(movieDetailed.getVideos().getResults()
+                        .toArray(new TrailerResult[movieDetailed.getVideos().getResults().size()]));
+                binding.includeDetail.trailers.setAdapter(trailerItemAdapter);
             }
 
             @Override

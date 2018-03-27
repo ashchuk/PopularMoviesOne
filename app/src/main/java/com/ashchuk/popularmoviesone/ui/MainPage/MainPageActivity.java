@@ -4,12 +4,9 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.ashchuk.popularmoviesone.R;
@@ -17,8 +14,8 @@ import com.ashchuk.popularmoviesone.data.pojo.Movie;
 import com.ashchuk.popularmoviesone.data.pojo.MovieDetailed;
 import com.ashchuk.popularmoviesone.data.pojo.MoviesQueryResult;
 import com.ashchuk.popularmoviesone.ui.DetailPage.DetailPageActivity;
+import com.ashchuk.popularmoviesone.ui.MainPage.adapters.MovieItemAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import dagger.android.support.DaggerAppCompatActivity;

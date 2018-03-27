@@ -1,4 +1,4 @@
-package com.ashchuk.popularmoviesone.ui.MainPage;
+package com.ashchuk.popularmoviesone.ui.DetailPage.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.ashchuk.popularmoviesone.R;
-import com.ashchuk.popularmoviesone.data.pojo.Movie;
+import com.ashchuk.popularmoviesone.data.pojo.TrailerResult;
 import com.ashchuk.popularmoviesone.utils.Constants;
 import com.squareup.picasso.Picasso;
 
@@ -16,11 +16,11 @@ import com.squareup.picasso.Picasso;
  * Created by Artyom Koshko (@ashchuk) on 04.03.2018.
  */
 
-public class MovieItemAdapter extends BaseAdapter {
+public class TrailerItemAdapter extends BaseAdapter {
     private Context context;
-    public Movie[] movies = new Movie[] {};
+    public TrailerResult[] trailers = new TrailerResult[] {};
 
-    public MovieItemAdapter(Context context) {
+    public TrailerItemAdapter(Context context) {
         this.context = context;
     }
 
@@ -31,36 +31,30 @@ public class MovieItemAdapter extends BaseAdapter {
         ImageView imageView = (ImageView) convertView;
 
         if (convertView == null)
-            imageView = (ImageView) inflater.inflate(R.layout.item_movie, null);
+            imageView = (ImageView) inflater.inflate(R.layout.item_trailer, null);
 
         Picasso
                 .get()
-                .load(Constants.POSTER_END_POINT + movies[position].getPosterPath())
+                .load(Constants.THUMBNAIL_END_POINT +
+                        trailers[position].getKey() +
+                        Constants.DEFAULT_IMAGE_NAME)
                 .placeholder(R.mipmap.ic_launcher_round)
-                .noFade().resize(185, 300)
-                .centerCrop()
                 .into(imageView);
 
         return imageView;
     }
 
-    public void setMovies(Movie[] movies) {
-        this.movies = movies;
+    public void setTrailers(TrailerResult[] trailers) {
+        this.trailers = trailers;
         notifyDataSetChanged();
     }
 
     @Override
-    public int getCount() {
-        return movies.length;
-    }
+    public int getCount() { return trailers.length; }
 
     @Override
-    public Object getItem(int position) {
-        return movies[position];
-    }
+    public Object getItem(int position) { return trailers[position]; }
 
     @Override
-    public long getItemId(int position) {
-        return movies[position].getId();
-    }
+    public long getItemId(int position) { return Integer.getInteger(trailers[position].getId()); }
 }
