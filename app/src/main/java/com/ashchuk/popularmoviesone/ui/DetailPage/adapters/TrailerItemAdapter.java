@@ -56,5 +56,7 @@ public class TrailerItemAdapter extends BaseAdapter {
     public Object getItem(int position) { return trailers[position]; }
 
     @Override
-    public long getItemId(int position) { return Integer.getInteger(trailers[position].getId()); }
+    public long getItemId(int position) {
+        return position;
+    }
 }

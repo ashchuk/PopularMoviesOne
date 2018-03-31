@@ -50,5 +50,7 @@ public class ReviewItemAdapter extends BaseAdapter {
     public Object getItem(int position) { return reviewResults[position]; }
 
     @Override
-    public long getItemId(int position) { return Integer.getInteger(reviewResults[position].getId()); }
+    public long getItemId(int position) {
+        return position;
+    }
 }
