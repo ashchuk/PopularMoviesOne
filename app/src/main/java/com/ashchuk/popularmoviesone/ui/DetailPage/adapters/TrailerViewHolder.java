@@ -15,12 +15,15 @@ import com.squareup.picasso.Picasso;
 
 public class TrailerViewHolder extends RecyclerView.ViewHolder {
     private ImageView mTrailerImageView;
-    public TrailerViewHolder(View itemView) {
+    private String mTrailerKey;
+    TrailerViewHolder(View itemView, TrailerItemAdapter.onTrailerClickListener listener) {
         super(itemView);
         mTrailerImageView = (ImageView) itemView;
+        mTrailerImageView.setOnClickListener(l -> listener.onClick(mTrailerKey));
     }
 
-    public void onBindViewHolder(TrailerResult trailerResult){
+    void onBindViewHolder(TrailerResult trailerResult){
+        mTrailerKey = trailerResult.getKey();
         Picasso
                 .get()
                 .load(Constants.THUMBNAIL_END_POINT +

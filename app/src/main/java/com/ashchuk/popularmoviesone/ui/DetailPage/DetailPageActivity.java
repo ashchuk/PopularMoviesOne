@@ -3,7 +3,9 @@ package com.ashchuk.popularmoviesone.ui.DetailPage;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -75,7 +77,16 @@ public class DetailPageActivity extends DaggerAppCompatActivity implements IDeta
                         LinearLayoutManager.HORIZONTAL, false);
                 TrailerItemAdapter trailerItemAdapter =
                         new TrailerItemAdapter(movieDetailed.getVideos().getResults()
-                                .toArray(new TrailerResult[movieDetailed.getVideos().getResults().size()]));
+                                .toArray(new TrailerResult[movieDetailed.getVideos().getResults().size()]), (key) -> {
+                            Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + key));
+                            if (appIntent.resolveActivity(getPackageManager()) != null) {
+                                startActivity(appIntent);
+                            } else {
+                                Intent intent = new Intent(Intent.ACTION_VIEW,
+                                        Uri.parse("http://www.youtube.com/watch?v=" + key));
+                                startActivity(intent);
+                            }
+                        });
                 binding.includeDetail.trailers.setLayoutManager(trailersLayoutManager);
                 binding.includeDetail.trailers.setAdapter(trailerItemAdapter);
             }
@@ -87,7 +98,9 @@ public class DetailPageActivity extends DaggerAppCompatActivity implements IDeta
             }
 
             @Override
-            public void onComplete() { progressDialog.dismiss(); }
+            public void onComplete() {
+                progressDialog.dismiss();
+            }
         };
 
         setSupportActionBar(binding.toolbar);
@@ -96,7 +109,7 @@ public class DetailPageActivity extends DaggerAppCompatActivity implements IDeta
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
             Snackbar.make(view, R.string.add_to_favorites_message, Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+                    .setAction("Action", null).show();
             moviesDbHelper.addMovieToDB(movie, this);
         });
 

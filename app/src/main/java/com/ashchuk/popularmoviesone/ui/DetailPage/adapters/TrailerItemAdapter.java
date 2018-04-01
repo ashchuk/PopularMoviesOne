@@ -15,16 +15,25 @@ import com.ashchuk.popularmoviesone.data.pojo.TrailerResult;
  */
 
 public class TrailerItemAdapter extends RecyclerView.Adapter<TrailerViewHolder> {
-    public TrailerResult[] trailers = new TrailerResult[] {};
 
-    public TrailerItemAdapter(TrailerResult[] trailers) { this.trailers = trailers; }
+    private TrailerResult[] trailers = new TrailerResult[] {};
+    private onTrailerClickListener mListener;
+
+    public interface onTrailerClickListener {
+        void onClick(String key);
+    }
+
+    public TrailerItemAdapter(TrailerResult[] trailers, onTrailerClickListener listener) {
+        this.trailers = trailers;
+        this.mListener = listener;
+    }
 
     @NonNull
     @Override
     public TrailerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_trailer, parent, false);
-        return new TrailerViewHolder(view);
+        return new TrailerViewHolder(view, mListener);
     }
 
     @Override
