@@ -24,4 +24,7 @@
     <string name="loading_message">Loading</string>
     <string name="add_to_favorites_message">Added to favorites</string>
     <string name="favorite">Favorite</string>
+    <string name="movie_trailer_description">Movie trailer</string>
+    <string name="reviews_label">Reviews</string>
+    <string name="trailers_label">Trailers</string>
 </resources>

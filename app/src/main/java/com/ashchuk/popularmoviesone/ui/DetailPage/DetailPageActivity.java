@@ -62,7 +62,7 @@ public class DetailPageActivity extends DaggerAppCompatActivity implements IDeta
             public void onNext(MovieDetailed movieDetailed) {
                 binding.setMovie(movieDetailed);
                 movie = movieDetailed;
-                Picasso.get().load(Constants.POSTER_END_POINT + movieDetailed.getPosterPath()).into(binding.moviePoster);
+                Picasso.get().load(Constants.BACKDROP_END_POINT + movieDetailed.getBackdropPath()).into(binding.moviePoster);
                 Picasso.get().load(Constants.POSTER_END_POINT + movieDetailed.getPosterPath()).into(binding.includeDetail.moviePoster);
 
                 LinearLayoutManager reviewsLayoutManager = new LinearLayoutManager(DetailPageActivity.this);

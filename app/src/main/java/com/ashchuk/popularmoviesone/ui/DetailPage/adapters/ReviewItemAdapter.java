@@ -18,7 +18,6 @@ public class ReviewItemAdapter extends RecyclerView.Adapter<ReviewViewHolder> {
 
     public ReviewItemAdapter(ReviewResult[] reviewResults) { this.reviewResults = reviewResults; }
 
-
     @NonNull
     @Override
     public ReviewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

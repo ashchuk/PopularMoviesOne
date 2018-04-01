@@ -18,7 +18,7 @@ public class TrailerViewHolder extends RecyclerView.ViewHolder {
     private String mTrailerKey;
     TrailerViewHolder(View itemView, TrailerItemAdapter.onTrailerClickListener listener) {
         super(itemView);
-        mTrailerImageView = (ImageView) itemView;
+        mTrailerImageView = itemView.findViewById(R.id.iv_trailer);
         mTrailerImageView.setOnClickListener(l -> listener.onClick(mTrailerKey));
     }
 
