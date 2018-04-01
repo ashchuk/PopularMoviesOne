@@ -7,6 +7,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
 
 import com.ashchuk.popularmoviesone.R;
 import com.ashchuk.popularmoviesone.data.persistance.MoviesDbContract;
@@ -62,14 +63,20 @@ public class DetailPageActivity extends DaggerAppCompatActivity implements IDeta
                 Picasso.get().load(Constants.POSTER_END_POINT + movieDetailed.getPosterPath()).into(binding.moviePoster);
                 Picasso.get().load(Constants.POSTER_END_POINT + movieDetailed.getPosterPath()).into(binding.includeDetail.moviePoster);
 
-                ReviewItemAdapter reviewItemAdapter = new ReviewItemAdapter(getApplicationContext());
-                reviewItemAdapter.setReviews(movieDetailed.getReviews().getResults()
-                        .toArray(new ReviewResult[movieDetailed.getReviews().getResults().size()]));
+                LinearLayoutManager reviewsLayoutManager = new LinearLayoutManager(DetailPageActivity.this);
+                ReviewItemAdapter reviewItemAdapter =
+                        new ReviewItemAdapter(movieDetailed.getReviews().getResults()
+                                .toArray(new ReviewResult[movieDetailed.getReviews().getResults().size()]));
+                binding.includeDetail.reviews.setLayoutManager(reviewsLayoutManager);
                 binding.includeDetail.reviews.setAdapter(reviewItemAdapter);
 
-                TrailerItemAdapter trailerItemAdapter = new TrailerItemAdapter(getApplicationContext());
-                trailerItemAdapter.setTrailers(movieDetailed.getVideos().getResults()
-                        .toArray(new TrailerResult[movieDetailed.getVideos().getResults().size()]));
+                LinearLayoutManager trailersLayoutManager = new LinearLayoutManager(
+                        DetailPageActivity.this,
+                        LinearLayoutManager.HORIZONTAL, false);
+                TrailerItemAdapter trailerItemAdapter =
+                        new TrailerItemAdapter(movieDetailed.getVideos().getResults()
+                                .toArray(new TrailerResult[movieDetailed.getVideos().getResults().size()]));
+                binding.includeDetail.trailers.setLayoutManager(trailersLayoutManager);
                 binding.includeDetail.trailers.setAdapter(trailerItemAdapter);
             }
 

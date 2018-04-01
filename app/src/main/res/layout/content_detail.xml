@@ -12,6 +12,7 @@
 
 
     <android.support.v4.widget.NestedScrollView
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -102,26 +103,23 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_margin="15dp"/>
 
-            <ListView
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/trailers"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@id/overview"
                 android:layout_margin="15dp"
-                tools:listitem="@layout/item_trailer"
+                android:scrollbars="horizontal"
                 tools:itemCount="5"/>
 
-            <ListView
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/reviews"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 app:layout_constraintTop_toBottomOf="@id/trailers"
                 android:layout_margin="15dp"
-                tools:listitem="@layout/item_review"
+                android:scrollbars="none"
                 tools:itemCount="5"/>
-
 
         </android.support.constraint.ConstraintLayout>
 
