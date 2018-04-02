@@ -66,7 +66,6 @@ public class MoviesDbHelper extends SQLiteOpenHelper {
         Cursor cursor = context.getContentResolver()
                 .query(MoviesDbContract.FavoriteMoviesTable.CONTENT_URI,
                         null, MoviesDbContract.FavoriteMoviesTable._ID + "+ ?", new String[]{id}, null);
-        ArrayList<Movie> movies = new ArrayList<>();
         Movie movie = null;
         if (cursor == null)
             return null;
