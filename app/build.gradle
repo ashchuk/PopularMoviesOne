@@ -5,7 +5,7 @@ android {
     defaultConfig {
         applicationId "com.ashchuk.popularmoviesone"
         minSdkVersion 15
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -51,7 +51,4 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     //picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
-    //stetho for db testing
-    implementation 'com.facebook.stetho:stetho:1.5.0'
-    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
 }
