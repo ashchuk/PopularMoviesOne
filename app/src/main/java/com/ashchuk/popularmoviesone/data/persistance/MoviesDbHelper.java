@@ -34,7 +34,7 @@ public class MoviesDbHelper extends SQLiteOpenHelper {
                 MoviesDbContract.FavoriteMoviesTable.COLUMN_POSTER_PATH + " TEXT NOT NULL, " +
                 MoviesDbContract.FavoriteMoviesTable.COLUMN_BACKDROP_PATH + " TEXT NOT NULL, " +
                 MoviesDbContract.FavoriteMoviesTable.COLUMN_RELEASE_YEAR + " TEXT NOT NULL, " +
-                MoviesDbContract.FavoriteMoviesTable.COLUMN_DURATION + " TEXT DEFAULT 'Unkown', " +
+                MoviesDbContract.FavoriteMoviesTable.COLUMN_DURATION + " TEXT DEFAULT 'Empty', " +
                 MoviesDbContract.FavoriteMoviesTable.COLUMN_RATING + " TEXT NOT NULL, " +
                 MoviesDbContract.FavoriteMoviesTable.COLUMN_STORY + " TEXT NOT NULL, " +
                 MoviesDbContract.FavoriteMoviesTable.COLUMN_ADDITION_TIMESTAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
