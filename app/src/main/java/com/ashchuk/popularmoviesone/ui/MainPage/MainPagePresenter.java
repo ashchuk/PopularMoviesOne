@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.ashchuk.popularmoviesone.api.IMovieDBApi;
 import com.ashchuk.popularmoviesone.data.persistance.MoviesDbHelper;
-import com.ashchuk.popularmoviesone.data.pojo.MovieDetailed;
+import com.ashchuk.popularmoviesone.data.pojo.Movie;
 import com.ashchuk.popularmoviesone.data.pojo.MoviesQueryResult;
 import java.util.List;
 
@@ -51,7 +51,7 @@ public class MainPagePresenter implements IMainPagePresenter {
     }
 
     @Override
-    public List<MovieDetailed> subscribeOnFavorite(Context context) {
+    public List<Movie> subscribeOnFavorite(Context context) {
         return moviesDbHelper.getFavoriteMovies(context);
     }
 }

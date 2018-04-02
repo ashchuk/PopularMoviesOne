@@ -16,7 +16,7 @@ public class MoviesDbContract {
 
     static class FavoriteMoviesTable implements BaseColumns {
 
-        static final String TABLE_NAME = "favorite_movies";
+        static final String TABLE_NAME = "favorites";
         static final String COLUMN_TITLE = "title";
         static final String COLUMN_POSTER_PATH = "poster_path";
         static final String COLUMN_BACKDROP_PATH = "backdrop_path";

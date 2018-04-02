@@ -6,10 +6,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.ashchuk.popularmoviesone.data.pojo.Movie;
 import com.ashchuk.popularmoviesone.data.pojo.MovieDetailed;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 /**
  * Created by Artyom Koshko (@ashchuk) on 24.03.2018.
@@ -44,7 +47,7 @@ public class MoviesDbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addMovieToDB(MovieDetailed movie, Context context){
+    public void addMovieToDB(Context context, MovieDetailed movie){
         ContentValues contentValues = new ContentValues();
         contentValues.put(MoviesDbContract.FavoriteMoviesTable._ID, movie.getId());
         contentValues.put(MoviesDbContract.FavoriteMoviesTable.COLUMN_TITLE, movie.getTitle());
@@ -58,26 +61,56 @@ public class MoviesDbHelper extends SQLiteOpenHelper {
                 .insert(MoviesDbContract.FavoriteMoviesTable.CONTENT_URI, contentValues);
     }
 
-    public List<MovieDetailed> getFavoriteMovies(Context context) {
+    @Nullable
+    public Movie getMovieById(Context context, String id) {
+        Cursor cursor = context.getContentResolver()
+                .query(MoviesDbContract.FavoriteMoviesTable.CONTENT_URI,
+                        null, MoviesDbContract.FavoriteMoviesTable._ID + "+ ?", new String[]{id}, null);
+        ArrayList<Movie> movies = new ArrayList<>();
+        Movie movie = null;
+        if (cursor == null)
+            return null;
+
+        for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            movie = new Movie();
+            movie.setId(cursor.getInt(cursor.getColumnIndex(MoviesDbContract.FavoriteMoviesTable._ID)));
+            movie.setPosterPath(cursor.getString(cursor.getColumnIndex(MoviesDbContract.FavoriteMoviesTable.COLUMN_POSTER_PATH)));
+            movie.setBackdropPath(cursor.getString(cursor.getColumnIndex(MoviesDbContract.FavoriteMoviesTable.COLUMN_BACKDROP_PATH)));
+            movie.setReleaseDate(cursor.getString(cursor.getColumnIndex(MoviesDbContract.FavoriteMoviesTable.COLUMN_RELEASE_YEAR)));
+            movie.setVoteAverage(Double.parseDouble((cursor.getString(cursor.getColumnIndex(MoviesDbContract.FavoriteMoviesTable.COLUMN_RATING)))));
+            movie.setOverview(cursor.getString(cursor.getColumnIndex(MoviesDbContract.FavoriteMoviesTable.COLUMN_STORY)));
+        }
+        cursor.close();
+        return movie;
+    }
+
+    public void removeMovieById(Context context, String id){
+        context.getContentResolver()
+                .delete(MoviesDbContract.FavoriteMoviesTable.CONTENT_URI,
+                        MoviesDbContract.FavoriteMoviesTable._ID + "+ ?", new String[]{id});
+    }
+
+    public List<Movie> getFavoriteMovies(Context context) {
         Cursor cursor = context.getContentResolver()
                 .query(MoviesDbContract.FavoriteMoviesTable.CONTENT_URI,
                         null, null, null, null);
-        ArrayList<MovieDetailed> movies = new ArrayList<>();
+        ArrayList<Movie> movies = new ArrayList<>();
 
         if (cursor == null)
             return movies;
 
         for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-            MovieDetailed movie = new MovieDetailed();
+            Movie movie = new Movie();
             movie.setId(cursor.getInt(cursor.getColumnIndex(MoviesDbContract.FavoriteMoviesTable._ID)));
             movie.setPosterPath(cursor.getString(cursor.getColumnIndex(MoviesDbContract.FavoriteMoviesTable.COLUMN_POSTER_PATH)));
             movie.setBackdropPath(cursor.getString(cursor.getColumnIndex(MoviesDbContract.FavoriteMoviesTable.COLUMN_BACKDROP_PATH)));
             movie.setReleaseDate(cursor.getString(cursor.getColumnIndex(MoviesDbContract.FavoriteMoviesTable.COLUMN_RELEASE_YEAR)));
-            movie.setRuntime(cursor.getInt(cursor.getColumnIndex(MoviesDbContract.FavoriteMoviesTable.COLUMN_DURATION)));
             movie.setVoteAverage(Double.parseDouble((cursor.getString(cursor.getColumnIndex(MoviesDbContract.FavoriteMoviesTable.COLUMN_RATING)))));
             movie.setOverview(cursor.getString(cursor.getColumnIndex(MoviesDbContract.FavoriteMoviesTable.COLUMN_STORY)));
             movies.add(movie);
         }
+
+        cursor.close();
         return movies;
     }
 }

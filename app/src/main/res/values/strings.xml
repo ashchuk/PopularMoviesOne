@@ -27,4 +27,5 @@
     <string name="movie_trailer_description">Movie trailer</string>
     <string name="reviews_label">Reviews</string>
     <string name="trailers_label">Trailers</string>
+    <string name="remove_from_favorites_message">Removed to favorites</string>
 </resources>

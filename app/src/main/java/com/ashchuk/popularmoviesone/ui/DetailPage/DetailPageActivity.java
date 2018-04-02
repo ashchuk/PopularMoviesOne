@@ -24,6 +24,8 @@ import com.ashchuk.popularmoviesone.utils.Constants;
 import com.squareup.picasso.Picasso;
 
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 
 import dagger.android.support.DaggerAppCompatActivity;
@@ -104,13 +106,20 @@ public class DetailPageActivity extends DaggerAppCompatActivity implements IDeta
         };
 
         setSupportActionBar(binding.toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
-            Snackbar.make(view, R.string.add_to_favorites_message, Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-            moviesDbHelper.addMovieToDB(movie, this);
+            if (moviesDbHelper.getMovieById(this, movieId) != null){
+                moviesDbHelper.removeMovieById(this, movieId);
+                Snackbar.make(view, R.string.remove_from_favorites_message, Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+            else{
+                moviesDbHelper.addMovieToDB(this, movie);
+                Snackbar.make(view, R.string.add_to_favorites_message, Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
         });
 
         detailPagePresenter.subscribeOnMovie(observer, movieId);

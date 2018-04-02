@@ -11,7 +11,6 @@ import android.widget.GridView;
 
 import com.ashchuk.popularmoviesone.R;
 import com.ashchuk.popularmoviesone.data.pojo.Movie;
-import com.ashchuk.popularmoviesone.data.pojo.MovieDetailed;
 import com.ashchuk.popularmoviesone.data.pojo.MoviesQueryResult;
 import com.ashchuk.popularmoviesone.ui.DetailPage.DetailPageActivity;
 import com.ashchuk.popularmoviesone.ui.MainPage.adapters.MovieItemAdapter;
@@ -30,6 +29,7 @@ public class MainPageActivity extends DaggerAppCompatActivity implements IMainPa
 
     private ProgressDialog progressDialog;
     private AlertDialog.Builder alertDialog;
+    GridView gridView;
 
     @Inject
     MainPagePresenter mainPagePresenter;
@@ -39,7 +39,7 @@ public class MainPageActivity extends DaggerAppCompatActivity implements IMainPa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final GridView gridView = findViewById(R.id.gridview);
+        gridView = findViewById(R.id.gridview);
         gridView.setAdapter(new MovieItemAdapter(getApplicationContext()));
 
         gridView.setOnItemClickListener((parent, v, position, id) -> {
@@ -107,7 +107,9 @@ public class MainPageActivity extends DaggerAppCompatActivity implements IMainPa
                 mainPagePresenter.subscribeOnTopRated(observer);
                 return true;
             case R.id.action_get_favorite:
-                List<MovieDetailed> list = mainPagePresenter.subscribeOnFavorite(this);
+                List<Movie> list = mainPagePresenter.subscribeOnFavorite(this);
+                ((MovieItemAdapter) gridView.getAdapter()).setMovies(list.toArray(new Movie[list.size()]));
+                gridView.refreshDrawableState();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
