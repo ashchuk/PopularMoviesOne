@@ -19,7 +19,7 @@ import javax.annotation.Nullable;
  */
 
 public class MoviesDbHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "movies_db";
+    private static final String DATABASE_NAME = "movies.db";
     private static final int DATABASE_VERSION = 1;
 
     public MoviesDbHelper(Context context) {
