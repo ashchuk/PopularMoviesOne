@@ -12,8 +12,6 @@ import com.ashchuk.popularmoviesone.data.pojo.MovieDetailed;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 /**
  * Created by Artyom Koshko (@ashchuk) on 24.03.2018.
  */
@@ -61,7 +59,6 @@ public class MoviesDbHelper extends SQLiteOpenHelper {
                 .insert(MoviesDbContract.FavoriteMoviesTable.CONTENT_URI, contentValues);
     }
 
-    @Nullable
     public Movie getMovieById(Context context, String id) {
         Cursor cursor = context.getContentResolver()
                 .query(MoviesDbContract.FavoriteMoviesTable.CONTENT_URI,
