@@ -18,7 +18,7 @@ import com.squareup.picasso.Picasso;
 
 public class MovieItemAdapter extends BaseAdapter {
     private Context context;
-    public Movie[] movies = new Movie[] {};
+    private Movie[] movies = new Movie[]{};
 
     public MovieItemAdapter(Context context) {
         this.context = context;

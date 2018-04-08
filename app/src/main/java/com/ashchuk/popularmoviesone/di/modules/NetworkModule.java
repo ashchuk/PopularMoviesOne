@@ -8,18 +8,14 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.IOException;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
 import okhttp3.HttpUrl;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -48,22 +44,19 @@ public class NetworkModule {
     @Provides
     @Singleton
     OkHttpClient provideOkhttpClient(Cache cache) {
-        OkHttpClient.Builder client = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request original = chain.request();
-                HttpUrl originalHttpUrl = original.url();
-                // Add TheMovieDB API key as parameter to every query
-                HttpUrl url = originalHttpUrl.newBuilder()
-                        .addQueryParameter("api_key", BuildConfig.THE_MOVIE_DB_API_KEY)
-                        .build();
+        OkHttpClient.Builder client = new OkHttpClient.Builder().addInterceptor(chain -> {
+            Request original = chain.request();
+            HttpUrl originalHttpUrl = original.url();
+            // Add TheMovieDB API key as parameter to every query
+            HttpUrl url = originalHttpUrl.newBuilder()
+                    .addQueryParameter("api_key", BuildConfig.THE_MOVIE_DB_API_KEY)
+                    .build();
 
-                Request.Builder requestBuilder = original.newBuilder()
-                        .url(url);
+            Request.Builder requestBuilder = original.newBuilder()
+                    .url(url);
 
-                Request request = requestBuilder.build();
-                return chain.proceed(request);
-            }
+            Request request = requestBuilder.build();
+            return chain.proceed(request);
         });
         client.cache(cache);
         return client.build();

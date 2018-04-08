@@ -33,7 +33,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/ic_play_circle_filled_white_24dp"/>
+            android:src="@drawable/ic_play_circle_filled_white_24dp"
+            android:contentDescription="@string/play_icon" />
 
     </FrameLayout>
 

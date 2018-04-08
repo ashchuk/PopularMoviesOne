@@ -22,9 +22,7 @@ import retrofit2.Retrofit;
 public class MainPagePresenter implements IMainPagePresenter {
 
     @Inject
-    public MainPagePresenter(IMainPageView mainPageView) {
-        mainPageView.onMainLoaded();
-    }
+    public MainPagePresenter(IMainPageView mainPageView) { mainPageView.onMainLoaded(); }
 
     @Inject
     public MoviesDbHelper moviesDbHelper;

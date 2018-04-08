@@ -62,7 +62,7 @@ public class MoviesDbHelper extends SQLiteOpenHelper {
     public Movie getMovieById(Context context, String id) {
         Cursor cursor = context.getContentResolver()
                 .query(MoviesDbContract.FavoriteMoviesTable.CONTENT_URI,
-                        null, MoviesDbContract.FavoriteMoviesTable._ID + "+ ?", new String[]{id}, null);
+                        null, MoviesDbContract.FavoriteMoviesTable._ID + " = ?", new String[]{id}, null);
         Movie movie = null;
         if (cursor == null)
             return null;
@@ -83,7 +83,7 @@ public class MoviesDbHelper extends SQLiteOpenHelper {
     public void removeMovieById(Context context, String id){
         context.getContentResolver()
                 .delete(MoviesDbContract.FavoriteMoviesTable.CONTENT_URI,
-                        MoviesDbContract.FavoriteMoviesTable._ID + "+ ?", new String[]{id});
+                        MoviesDbContract.FavoriteMoviesTable._ID + " = ?", new String[]{id});
     }
 
     public List<Movie> getFavoriteMovies(Context context) {

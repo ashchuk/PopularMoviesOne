@@ -13,8 +13,8 @@
         android:title="@string/popular"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_get_favorite"
+        android:id="@+id/action_get_favourite"
         android:orderInCategory="3"
-        android:title="@string/favorite"
+        android:title="@string/favourite"
         app:showAsAction="never" />
 </menu>

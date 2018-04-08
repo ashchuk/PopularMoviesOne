@@ -26,7 +26,6 @@ import javax.inject.Inject;
 public class MainPageActivity extends DaggerAppCompatActivity implements IMainPageView {
 
     private Observer<MoviesQueryResult> observer;
-
     private ProgressDialog progressDialog;
     private AlertDialog.Builder alertDialog;
     GridView gridView;
@@ -50,29 +49,35 @@ public class MainPageActivity extends DaggerAppCompatActivity implements IMainPa
         });
 
         observer = new Observer<MoviesQueryResult>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        progressDialog.show();
-                    }
+            @Override
+            public void onSubscribe(Disposable d) {
+                progressDialog.show();
+            }
 
-                    @Override
-                    public void onNext(MoviesQueryResult moviesQueryResult) {
-                        ((MovieItemAdapter) gridView.getAdapter()).setMovies(moviesQueryResult.getResults().toArray(new Movie[moviesQueryResult.getResults().size()]));
-                        gridView.refreshDrawableState();
-                    }
+            @Override
+            public void onNext(MoviesQueryResult moviesQueryResult) {
+                ((MovieItemAdapter) gridView.getAdapter()).setMovies(moviesQueryResult.getResults().toArray(new Movie[moviesQueryResult.getResults().size()]));
+                gridView.refreshDrawableState();
+            }
 
-                    @Override
-                    public void onError(Throwable t) {
-                        progressDialog.dismiss();
-                        alertDialog.show();
-                    }
+            @Override
+            public void onError(Throwable t) {
+                progressDialog.dismiss();
+                alertDialog.show();
+            }
 
-                    @Override
-                    public void onComplete() {
-                        progressDialog.dismiss();
-                    }
-                };
-        mainPagePresenter.subscribeOnTopRated(observer);
+            @Override
+            public void onComplete() {
+                progressDialog.dismiss();
+            }
+        };
+        mainPagePresenter.subscribeOnPopular(observer);
+    }
+
+    @Override
+    protected void onResume() {
+        mainPagePresenter.subscribeOnPopular(observer);
+        super.onResume();
     }
 
     private void initDialogs() {
@@ -106,7 +111,7 @@ public class MainPageActivity extends DaggerAppCompatActivity implements IMainPa
             case R.id.action_get_top_ratied:
                 mainPagePresenter.subscribeOnTopRated(observer);
                 return true;
-            case R.id.action_get_favorite:
+            case R.id.action_get_favourite:
                 List<Movie> list = mainPagePresenter.subscribeOnFavorite(this);
                 ((MovieItemAdapter) gridView.getAdapter()).setMovies(list.toArray(new Movie[list.size()]));
                 gridView.refreshDrawableState();

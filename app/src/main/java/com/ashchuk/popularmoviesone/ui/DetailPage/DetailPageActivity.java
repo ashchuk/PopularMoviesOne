@@ -2,17 +2,16 @@ package com.ashchuk.popularmoviesone.ui.DetailPage;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.ashchuk.popularmoviesone.R;
-import com.ashchuk.popularmoviesone.data.persistance.MoviesDbContract;
 import com.ashchuk.popularmoviesone.data.persistance.MoviesDbHelper;
 import com.ashchuk.popularmoviesone.data.pojo.MovieDetailed;
 import com.ashchuk.popularmoviesone.data.pojo.ReviewResult;
@@ -110,21 +109,30 @@ public class DetailPageActivity extends DaggerAppCompatActivity implements IDeta
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
-            if (moviesDbHelper.getMovieById(this, movieId) != null){
+            if (moviesDbHelper.getMovieById(this, movieId) != null) {
                 moviesDbHelper.removeMovieById(this, movieId);
-                Snackbar.make(view, R.string.remove_from_favorites_message, Snackbar.LENGTH_LONG)
+                Snackbar.make(view, R.string.remove_from_favourites_message, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-            }
-            else{
+            } else {
                 moviesDbHelper.addMovieToDB(this, movie);
-                Snackbar.make(view, R.string.add_to_favorites_message, Snackbar.LENGTH_LONG)
+                Snackbar.make(view, R.string.add_to_favourites_message, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
+            toggleFabIcon(moviesDbHelper.getMovieById(this, movieId) != null);
         });
 
         detailPagePresenter.subscribeOnMovie(observer, movieId);
+        toggleFabIcon(moviesDbHelper.getMovieById(this, movieId) != null);
     }
 
+    private void toggleFabIcon(boolean isFavorite) {
+        FloatingActionButton fab = findViewById(R.id.fab);
+        if (isFavorite) {
+            fab.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_star_filled_24dp));
+            return;
+        }
+        fab.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_star_border_24dp));
+    }
 
     private void initDialogs() {
         progressDialog = new ProgressDialog(this);
